@@ -1,6 +1,6 @@
 {
     "name": "magentocoders/custom-catalog",
-    "description": "MagentoCoders Custom Catalog Moduyle",
+    "description": "MagentoCoders Custom Catalog Module",
     "type": "magento2-module",
     "license": [
         "Commercial"
@@ -12,7 +12,7 @@
             "role": "Technical Support"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "autoload": {
         "files": [
             "registration.php"
