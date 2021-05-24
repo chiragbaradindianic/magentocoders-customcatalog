@@ -17,7 +17,7 @@
         "files": [
             "registration.php"
         ],
-        "psr-4": {"MagentoCoders\\CustomCatalog\\": "src/"}
+        "psr-4": {"MagentoCoders\\CustomCatalog\\": ""}
     },
     "require": {}
 }
