@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="magentocoders_customcatalog" resource="default" engine="innodb" comment="magentocoders_customcatalog">
+        <column xsi:type="smallint" name="product_id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="vpn" length="255" comment="vpn"/>
+        <column xsi:type="varchar" name="sku" nullable="true" length="64" comment="SKU"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Modification Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="product_id"/>
+        </constraint>
+        <index referenceId="MAGENTOCODERS_CUSTOMCATALOG_CONTENT" indexType="btree">
+            <column name="vpn"/>
+            <column name="sku"/>
+        </index>
+    </table>
+
+    <table name="customcatalog_store" resource="default" engine="innodb" comment="Magentocoders Customcatalog To Store Linkage Table">
+        <column xsi:type="smallint" name="product_id" unsigned="true" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" identity="false"
+                comment="Store ID"/>
+        <column xsi:type="varchar" name="copy_write_info" nullable="false" length="255" comment="Title"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="product_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CUSTOMCATALOG_STORE_PRODUCT_ID_MAGENTOCODERS_CUSTOMCATALOG_PRODUCT_ID" table="customcatalog_store"
+                    column="product_id" referenceTable="magentocoders_customcatalog" referenceColumn="product_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CUSTOMCATALOG_STORE_STORE_ID_STORE_STORE_ID" table="customcatalog_store"
+                    column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+        <index referenceId="CUSTOMCATALOG_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+</schema>

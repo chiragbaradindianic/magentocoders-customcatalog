@@ -1,0 +1,23 @@
+{
+    "name": "magentocoders/custom-catalog",
+    "description": "MagentoCoders Custom Catalog Module",
+    "type": "magento2-module",
+    "license": [
+        "Commercial"
+    ],
+    "authors": [
+        {
+            "name": "Indianic",
+            "email": "parthav.n@indianic.com",
+            "role": "Technical Support"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {"MagentoCoders\\CustomCatalog\\": "src/"}
+    },
+    "require": {}
+}
