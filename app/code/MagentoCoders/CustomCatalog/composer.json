@@ -1,8 +1,10 @@
 {
-    "name": "magentocoders/customcatalog",
-    "description": "A simple hello world composer package",
+    "name": "magentocoders/custom-catalog",
+    "description": "MagentoCoders Custom Catalog Moduyle",
     "type": "magento2-module",
-    "license": "MIT",
+    "license": [
+        "Commercial"
+    ],
     "authors": [
         {
             "name": "Indianic",
