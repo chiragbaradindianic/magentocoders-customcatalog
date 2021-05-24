@@ -3,7 +3,8 @@
     "description": "MagentoCoders Custom Catalog Module",
     "type": "magento2-module",
     "license": [
-        "Commercial"
+        "OSL-3.0",
+        "AFL-3.0"
     ],
     "authors": [
         {
