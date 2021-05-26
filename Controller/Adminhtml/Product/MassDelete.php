@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Controller\Adminhtml\Product;
 
 use Magento\Backend\App\Action\Context;
@@ -47,7 +45,7 @@ class MassDelete extends \Magento\Backend\App\Action
         foreach ($collection as $item) {
             $item->delete();
         }
-        $this->messageManager->addSuccess(__('A total of %1 element(s) have been deleted.', $collectionSize));
+        $this->messageManager->addSuccessMessage(__('A total of %1 element(s) have been deleted.', $collectionSize));
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         return $resultRedirect->setPath('*/*/');

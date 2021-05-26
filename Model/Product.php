@@ -1,7 +1,6 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Model;
+
 use MagentoCoders\CustomCatalog\Api\Data\ProductInterface;
 use Magento\Framework\Model\AbstractModel;
 
@@ -12,6 +11,11 @@ use Magento\Framework\Model\AbstractModel;
 class Product extends AbstractModel implements ProductInterface
 {
 
+    /**
+     * Initialize model
+     *
+     * @return void
+     */
     protected function _construct()
     {
         $this->_init(\MagentoCoders\CustomCatalog\Model\ResourceModel\Product::class);

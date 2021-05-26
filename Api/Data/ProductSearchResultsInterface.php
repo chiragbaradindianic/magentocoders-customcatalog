@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;

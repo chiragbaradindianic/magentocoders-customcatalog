@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Controller\Adminhtml\Product;
 
 use Magento\Framework\Controller\ResultFactory;

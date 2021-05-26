@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Model;
 
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -14,12 +12,10 @@ use MagentoCoders\CustomCatalog\Model\ResourceModel\Relation as RelationModel;
  */
 class RelationRepository implements RelationRepositoryInterface
 {
-
     /**
      * @var StoreManagerInterface
      */
     private $storeManager;
-
     /**
      * @var \MagentoCoders\CustomCatalog\Model\RelationFactory
      */
@@ -42,15 +38,17 @@ class RelationRepository implements RelationRepositoryInterface
         RelationFactory $relationFactory
 
     ) {
-        $this->storeManager = $storeManager;
-        $this->relationFactory = $relationFactory;
-        $this->relationModel = $relationModel;
+        $this->storeManager     = $storeManager;
+        $this->relationFactory  = $relationFactory;
+        $this->relationModel    = $relationModel;
     }
 
+    /**
+     * @param \MagentoCoders\CustomCatalog\Api\Data\RelationInterface $product
+     * @return \MagentoCoders\CustomCatalog\Api\Data\RelationInterface|\MagentoCoders\CustomCatalog\Api\MagentoCoders\CustomCatalog\Api\Data\RelationInterface
+     */
     public function save(\MagentoCoders\CustomCatalog\Api\Data\RelationInterface $product)
     {
-        /*print_r($product->getData());
-        die('save');*/
         try {
             $this->relationModel->save($product);
         } catch (\Exception $exception) {
@@ -59,6 +57,11 @@ class RelationRepository implements RelationRepositoryInterface
         return $product;
     }
 
+    /**
+     * @param string $productId
+     * @return \MagentoCoders\CustomCatalog\Api\MagentoCoders\CustomCatalog\Api\Data\RelationInterface
+     * @throws NoSuchEntityException
+     */
     public function getById($productId)
     {
         $product = $this->relationFactory->create();

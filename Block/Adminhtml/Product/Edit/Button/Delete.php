@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Block\Adminhtml\Product\Edit\Button;
 
 use Magento\Backend\Block\Widget\Context;
@@ -50,7 +48,7 @@ class Delete extends Generic implements ButtonProviderInterface
      */
     public function getDeleteUrl()
     {
-        $product_id = $this->context->getRequest()->getParam('product_id');
-        return $this->getUrl('*/*/delete', ['product_id' => $product_id]);
+        $productId = $this->context->getRequest()->getParam('product_id');
+        return $this->getUrl('*/*/delete', ['product_id' => $productId]);
     }
 }

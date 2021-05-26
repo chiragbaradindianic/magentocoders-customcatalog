@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Model;
 
 use MagentoCoders\CustomCatalog\Model\ResourceModel\Product\CollectionFactory;
@@ -47,8 +45,8 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         array $meta = [],
         array $data = []
     ) {
-        $this->collection = $collectionFactory->create();
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
+        $this->collection = $collectionFactory->create();
         $this->request = $request;
         $this->relationCollectionFactory = $relationCollectionFactory;
     }
@@ -81,7 +79,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      * @param $storeId
      * @return array
      */
-   public function getCopWriteInfo($productId,$storeId)
+   public function getCopWriteInfo($productId, $storeId)
     {
         $collection = $this->relationCollectionFactory->create();
         $collection->addFieldToFilter('product_id',['eq' => $productId])

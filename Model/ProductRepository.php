@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Model;
 
 
@@ -83,17 +81,17 @@ class ProductRepository implements ProductRepositoryInterface
         Request $requestBodyParams
 
     ) {
-        $this->storeManager = $storeManager;
-        $this->productModel = $productModel;
-        $this->productFactory = $productFactory;
+        $this->storeManager                         = $storeManager;
+        $this->productModel                         = $productModel;
+        $this->productFactory                       = $productFactory;
         $this->productSearchResultsInterfaceFactory = $productSearchResultsInterfaceFactory;
-        $this->productCollectionFactory = $productCollectionFactory;
-        $this->relationCollectionFactory = $relationCollectionFactory;
-        $this->collectionProcessor = $collectionProcessor;
-        $this->dataObjectHelper = $dataObjectHelper;
-        $this->objectProcessor = $objectProcessor;
-        $this->productInterfaceFactory = $productInterfaceFactory;
-        $this->requestBodyParams = $requestBodyParams;
+        $this->productCollectionFactory             = $productCollectionFactory;
+        $this->relationCollectionFactory            = $relationCollectionFactory;
+        $this->collectionProcessor                  = $collectionProcessor;
+        $this->dataObjectHelper                     = $dataObjectHelper;
+        $this->objectProcessor                      = $objectProcessor;
+        $this->productInterfaceFactory              = $productInterfaceFactory;
+        $this->requestBodyParams                    = $requestBodyParams;
     }
 
     /**
@@ -130,8 +128,7 @@ class ProductRepository implements ProductRepositoryInterface
     {
         $collection = $this->productCollectionFactory->create();
         $storeId = $this->storeManager->getStore()->getId();
-        if($storeId == 1)
-        {
+        if($storeId == 1) {
             $storeId = 0;
         }
         $collection->addFieldToFilter('vpn',['eq' => $vpn]);
@@ -160,8 +157,7 @@ class ProductRepository implements ProductRepositoryInterface
         $data = $this->requestBodyParams->getBodyParams();
         $vpn = $data['vpn'];
 
-        if(!empty($data['store_id']))
-        {
+        if (!empty($data['store_id'])) {
             $storeId = $data['store_id'];
         } else {
             $data['store_id'] = 0;

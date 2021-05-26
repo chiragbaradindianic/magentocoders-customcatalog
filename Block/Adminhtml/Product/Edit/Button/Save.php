@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Block\Adminhtml\Product\Edit\Button;
 
 use Magento\Backend\Block\Widget\Context;
@@ -14,8 +12,6 @@ use Magento\Framework\App\RequestInterface;
  */
 class Save extends Generic implements ButtonProviderInterface
 {
-
-
     /**
      * @var RequestInterface
      */
@@ -38,8 +34,7 @@ class Save extends Generic implements ButtonProviderInterface
     public function getButtonData()
     {
         $storeId = $this->request->getParam('store');
-        if($storeId == null)
-        {
+        if ($storeId == null) {
             $storeId = 0;
         }
         return [

@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Block\Adminhtml\Product\Edit\Button;
 
 use Magento\Backend\Block\Widget\Context;

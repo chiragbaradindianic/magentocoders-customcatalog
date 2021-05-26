@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Controller\Adminhtml\Product;
 
 use Magento\Backend\App\Action;
@@ -9,9 +7,10 @@ use Magento\Backend\App\Action\Context;
 class Delete extends Action
 {
     /**
-     * @var \MagentoCoders\CustomCatalog\Model\Product
+     * @var \MagentoCoders\CustomCatalog\Model\ProductFactory
      */
-    private $ProductModel;
+    private $productModel;
+
 
     /**
      * Delete constructor.
@@ -20,10 +19,10 @@ class Delete extends Action
      */
     public function __construct(
         Context $context,
-        \MagentoCoders\CustomCatalog\Model\ProductFactory $ProductModel
+        \MagentoCoders\CustomCatalog\Model\ProductFactory $productModel
     ) {
         parent::__construct($context);
-        $this->ProductModel = $ProductModel;
+        $this->productModel = $productModel;
     }
 
     /**
@@ -38,17 +37,17 @@ class Delete extends Action
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($id) {
             try {
-                $model = $this->ProductModel->create();
+                $model = $this->productModel->create();
                 $model->load($id);
                 $model->delete();
-                $this->messageManager->addSuccess(__('Product deleted successfully.'));
+                $this->messageManager->addSuccessMessage(__('Product deleted successfully.'));
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
                 return $resultRedirect->setPath('*/*/edit', ['product_id' => $id]);
             }
         }
-        $this->messageManager->addError(__('Product does not exist.'));
+        $this->messageManager->addErrorMessage(__('Product does not exist.'));
         return $resultRedirect->setPath('*/*/');
     }
 }

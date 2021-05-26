@@ -1,7 +1,8 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Api;
+
+use Magento\Framework\Api\SearchCriteriaInterface;
+use MagentoCoders\CustomCatalog\Api\Data\ProductInterface;
 
 /**
  * Interface ProductRepositoryInterface
@@ -12,18 +13,18 @@ interface ProductRepositoryInterface
     /**
      * Save product.
      *
-     * @param \MagentoCoders\CustomCatalog\Api\Data\ProductInterface $product
-     * @return \MagentoCoders\CustomCatalog\Api\Data\ProductInterface
+     * @param ProductInterface $product
+     * @return ProductInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function save(\MagentoCoders\CustomCatalog\Api\Data\ProductInterface $product);
+    public function save(ProductInterface $product);
 
 
     /**
      * Retrieve product.
      *
      * @param string $productId
-     * @return \MagentoCoders\CustomCatalog\Api\Data\ProductInterface
+     * @return ProductInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getById($productId);
@@ -32,16 +33,16 @@ interface ProductRepositoryInterface
      * Retrieve product by vpn.
      *
      * @param string $vpn
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @param SearchCriteriaInterface $searchCriteria
      * @return MagentoCoders\CustomCatalog\Api\Data\ProductSearchResultsInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      **/
-    public function getByVPN($vpn,\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
+    public function getByVPN($vpn, SearchCriteriaInterface $searchCriteria);
 
     /**
      * product Update
      * @param string $productId
-     * @return \MagentoCoders\CustomCatalog\Api\Data\ProductInterface
+     * @return ProductInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      **/
     public function getProductUpdate($productId);

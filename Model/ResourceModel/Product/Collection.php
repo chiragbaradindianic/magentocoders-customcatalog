@@ -1,9 +1,8 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Model\ResourceModel\Product;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use MagentoCoders\CustomCatalog\Model\ResourceModel0\Product;
 
 /**
  * Class Collection
@@ -22,6 +21,6 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init(\MagentoCoders\CustomCatalog\Model\Product::class, \MagentoCoders\CustomCatalog\Model\ResourceModel\Product::class);
+        $this->_init(\MagentoCoders\CustomCatalog\Model\Product::class, Product::class);
     }
 }

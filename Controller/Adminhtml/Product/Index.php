@@ -1,5 +1,4 @@
 <?php
-
 namespace MagentoCoders\CustomCatalog\Controller\Adminhtml\Product;
 
 /**

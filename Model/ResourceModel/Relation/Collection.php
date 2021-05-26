@@ -1,9 +1,8 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Model\ResourceModel\Relation;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use MagentoCoders\CustomCatalog\Model\ResourceModel\Relation;
 
 /**
  * Class Collection
@@ -22,6 +21,6 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init(\MagentoCoders\CustomCatalog\Model\Relation::class, \MagentoCoders\CustomCatalog\Model\ResourceModel\Relation::class);
+        $this->_init(\MagentoCoders\CustomCatalog\Model\Relation::class, Relation::class);
     }
 }

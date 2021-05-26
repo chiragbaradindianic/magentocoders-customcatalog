@@ -1,5 +1,4 @@
 <?php
-
 namespace MagentoCoders\CustomCatalog\Ui\Component\Listing\Column;
 
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
@@ -45,7 +44,6 @@ class CopyWriteInfo extends \Magento\Ui\Component\Listing\Columns\Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                //print_r($item);
                 $item['copy_write_info'] = $this->getCopyWriteInfo($item['product_id']);
             }
         }
@@ -60,8 +58,9 @@ class CopyWriteInfo extends \Magento\Ui\Component\Listing\Columns\Column
     public function getCopyWriteInfo($productId)
     {
         $collection = $this->relation->create();
-        $collection->addFieldToFilter('product_id',['eq' => $productId])
-            ->addFieldToFilter('store_id',['eq' => '0']);
+        $collection
+            ->addFieldToFilter('product_id', ['eq' => $productId])
+            ->addFieldToFilter('store_id', ['eq' => '0']);
         return $collection->getColumnValues('copy_write_info');
     }
 }

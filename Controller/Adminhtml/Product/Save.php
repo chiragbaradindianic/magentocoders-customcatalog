@@ -1,5 +1,4 @@
 <?php
-
 namespace MagentoCoders\CustomCatalog\Controller\Adminhtml\Product;
 
 use Magento\Backend\App\Action;
@@ -124,9 +123,9 @@ class Save extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         $model = $this->productFactory->create();
         if ($data) {
-            $product_id = $this->getRequest()->getParam('product_id');
-            if ($product_id) {
-                $model =  $this->productRepository->getById($product_id);
+            $productId = $this->getRequest()->getParam('product_id');
+            if ($productId) {
+                $model =  $this->productRepository->getById($productId);
                 if($model->getSku() != $data['sku']) {
                     $productCollection = $this->collectionFactory->create();
                     $productCollection->addFieldToFilter('sku', ['eq' => $data['sku']]);
@@ -136,8 +135,7 @@ class Save extends \Magento\Backend\App\Action
                         return $resultRedirect->setPath('*/*/edit', ['product_id' => $this->getRequest()->getParam('product_id')]);
                     }
                 }
-            }
-            else {
+            }  else {
                 $productCollection = $this->collectionFactory->create();
                 $productCollection->addFieldToFilter('sku',['eq' => $data['sku']]);
                 if(count($productCollection) > 0)
@@ -164,7 +162,7 @@ class Save extends \Magento\Backend\App\Action
                 $this->publisher->publish('customcatalog.product', $operation);
 
 
-                $this->messageManager->addSuccess(__('The product has been saved.'));
+                $this->messageManager->addSuccessMessage(__('The product has been saved.'));
                 $this->adminsession->setFormData(false);
                 if ($this->getRequest()->getParam('back')) {
                     if ($this->getRequest()->getParam('back') == 'add') {
@@ -175,11 +173,11 @@ class Save extends \Magento\Backend\App\Action
                 }
                 return $resultRedirect->setPath('*/*/');
             } catch (\Magento\Framework\Exception\LocalizedException $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\RuntimeException $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
-                $this->messageManager->addException($e, __('Something went wrong while saving the product.'));
+                $this->messageManager->addExceptionMessage($e, __('Something went wrong while saving the product.'));
             }
             $this->_getSession()->setFormData($data);
             return $resultRedirect->setPath('*/*/edit', ['product_id' => $this->getRequest()->getParam('product_id')]);

@@ -1,6 +1,4 @@
 <?php
-
-
 namespace MagentoCoders\CustomCatalog\Model;
 
 use Magento\AsynchronousOperations\Api\Data\OperationInterface;
@@ -18,6 +16,7 @@ use Magento\Framework\Bulk\OperationManagementInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Serialize\Serializer\Json;
+use MagentoCoders\CustomCatalog\Model\ProductRepository;
 
 /**
  * Class Consumer
@@ -97,7 +96,7 @@ class Consumer
         Curl $curl,
         ScopeConfigInterface $scopeConfig,
         Json $serializer,
-        \MagentoCoders\CustomCatalog\Model\ProductRepository $productRepository
+        ProductRepository $productRepository
     ) {
         $this->logger               = $logger;
         $this->jsonHelper           = $jsonHelper;
