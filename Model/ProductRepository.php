@@ -132,8 +132,6 @@ class ProductRepository implements ProductRepositoryInterface
             $storeId = 0;
         }
         $collection->addFieldToFilter('vpn',['eq' => $vpn]);
-        /*echo $collection->getSelect();
-        die();*/
         $collection->getSelect()->joinLeft(
             ['cs'=> $collection->getTable('customcatalog_store')],
             'main_table.product_id= cs.product_id',
