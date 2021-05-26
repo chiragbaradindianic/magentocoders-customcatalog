@@ -2,20 +2,22 @@
     "name": "magentocoders/custom-catalog",
     "description": "MagentoCoders Custom Catalog Module",
     "type": "magento2-module",
-    "version": "1.0.0",
     "license": [
-        "OSL-3.0",
-        "AFL-3.0"
+        "Commercial"
     ],
+    "authors": [
+        {
+            "name": "Indianic",
+            "email": "parthav.n@indianic.com",
+            "role": "Technical Support"
+        }
+    ],
+    "minimum-stability": "dev",
     "autoload": {
         "files": [
             "registration.php"
         ],
-        "psr-4": {
-            "MagentoCoders\\CustomCatalog\\": ""
-        }
+        "psr-4": {"MagentoCoders\\CustomCatalog\\": ""}
     },
-    "require": {
-        "php": "^7.1.0"
-    }
+    "require": {}
 }

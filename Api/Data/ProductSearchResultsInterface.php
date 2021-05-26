@@ -25,4 +25,5 @@ interface ProductSearchResultsInterface extends SearchResultsInterface
      * @return $this
      */
     public function setItems(array $items);
+
 }

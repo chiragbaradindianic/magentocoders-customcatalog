@@ -11,6 +11,11 @@ use MagentoCoders\CustomCatalog\Model\ProductFactory;
 use MagentoCoders\CustomCatalog\Model\ProductRepository;
 use MagentoCoders\CustomCatalog\Model\RelationRepository;
 use MagentoCoders\CustomCatalog\Model\RelationFactory;
+use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Framework\DataObject\IdentityGeneratorInterface;
+use Magento\AsynchronousOperations\Api\Data\OperationInterfaceFactory;
+use Magento\Framework\MessageQueue\PublisherInterface;
+use Magento\AsynchronousOperations\Api\Data\OperationInterface;
 
 /**
  * Class Save
@@ -46,6 +51,22 @@ class Save extends \Magento\Backend\App\Action
      * @var CollectionFactory
      */
     private $collectionFactory;
+    /**
+     * @var PublisherInterface
+     */
+    private $publisher;
+    /**
+     * @var OperationInterfaceFactory
+     */
+    private $operationFactory;
+    /**
+     * @var IdentityGeneratorInterface
+     */
+    private $identityService;
+    /**
+     * @var Json
+     */
+    private $serializer;
 
     /**
      * Save constructor.
@@ -56,6 +77,10 @@ class Save extends \Magento\Backend\App\Action
      * @param ProductFactory $productFactory
      * @param ProductRepository $productRepository
      * @param CollectionFactory $collectionFactory
+     * @param PublisherInterface $publisher
+     * @param OperationInterfaceFactory $operationFactory
+     * @param IdentityGeneratorInterface $identityService
+     * @param Json $serializer
      * @param Session $adminsession
      */
     public function __construct
@@ -67,17 +92,24 @@ class Save extends \Magento\Backend\App\Action
         ProductFactory $productFactory,
         ProductRepository $productRepository,
         CollectionFactory $collectionFactory,
+        PublisherInterface $publisher,
+        OperationInterfaceFactory $operationFactory,
+        IdentityGeneratorInterface $identityService,
+        Json $serializer,
         Session $adminsession
     ) {
         parent::__construct($context);
         $this->productModel = $productModel;
         $this->adminsession = $adminsession;
-
         $this->productFactory = $productFactory;
         $this->productRepository = $productRepository;
         $this->relationFactory = $relationFactory;
         $this->relationRepository = $relationRepository;
         $this->collectionFactory = $collectionFactory;
+        $this->publisher = $publisher;
+        $this->operationFactory = $operationFactory;
+        $this->identityService = $identityService;
+        $this->serializer = $serializer;
     }
 
     /**
@@ -117,6 +149,21 @@ class Save extends \Magento\Backend\App\Action
             $model->setData($data);
             try {
                 $this->productRepository->save($model);
+
+                $serializedData= $this->serializer->serialize($data);
+                $bulkUuid = $this->identityService->generateId();
+                $data = [
+                    'data' => [
+                        'bulk_uuid' => $bulkUuid,
+                        'topic_name' => 'customcatalog.product',
+                        'serialized_data' => $serializedData,
+                        'status' => OperationInterface::STATUS_TYPE_OPEN,
+                    ]
+                ];
+                $operation = $this->operationFactory->create($data);
+                $this->publisher->publish('customcatalog.product', $operation);
+
+
                 $this->messageManager->addSuccess(__('The product has been saved.'));
                 $this->adminsession->setFormData(false);
                 if ($this->getRequest()->getParam('back')) {

@@ -126,21 +126,30 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function getByVPN($vpn)
+    public function getByVPN($vpn, \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria)
     {
         $collection = $this->productCollectionFactory->create();
+        $storeId = $this->storeManager->getStore()->getId();
+        if($storeId == 1)
+        {
+            $storeId = 0;
+        }
         $collection->addFieldToFilter('vpn',['eq' => $vpn]);
+        /*echo $collection->getSelect();
+        die();*/
         $collection->getSelect()->joinLeft(
             ['cs'=> $collection->getTable('customcatalog_store')],
             'main_table.product_id= cs.product_id',
             ['copy_write_info' => 'cs.copy_write_info','store_id' => 'cs.store_id']
-        );
-        /*$searchResults = $this->productSearchResultsInterfaceFactory->create();
+        )->where('cs.store_id='.$storeId);
+
+        $this->collectionProcessor->process($searchCriteria, $collection);
+
+        $searchResults = $this->productSearchResultsInterfaceFactory->create();
         $searchResults->setSearchCriteria($searchCriteria);
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
-        return $searchResults;*/
-        return $collection->getData();
+        return $searchResults;
     }
 
     /**
@@ -153,13 +162,12 @@ class ProductRepository implements ProductRepositoryInterface
 
         if(!empty($data['store_id']))
         {
-            die('store');
             $storeId = $data['store_id'];
         } else {
             $data['store_id'] = 0;
         }
         $data['product_id'] = $productId;
-       $copyWriteInfo = $data['copy_write_info'];
+        $copyWriteInfo = $data['copy_write_info'];
         $product = $this->productFactory->create();
         $product->load($productId);
         $product->setData($data);
